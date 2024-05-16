@@ -32,15 +32,15 @@ data "nutanix_image" "image" {
 }
 
 # unattend.xml template
-data "template_file" "unattend" {
-  template = file("${path.module}/unattend.xml")
-  vars = {
-    vm_name             = var.t_vm_name
-    hostname            = var.t_hostname
-    admin_username      = var.t_admin_username
-    admin_password      = var.t_admin_password
-  }
-}
+#data "template_file" "unattend" {
+#  template = file("${path.module}/unattend.xml")
+#  vars = {
+#    vm_name             = var.t_vm_name
+#    hostname            = var.t_hostname
+#    admin_username      = var.t_admin_username
+#    admin_password      = var.t_admin_password
+#  }
+#}
 
 resource "nutanix_virtual_machine" "vm" {
   #  count                = 1
@@ -59,10 +59,10 @@ resource "nutanix_virtual_machine" "vm" {
   }
 
   # Unattend.xml 
-  guest_customization_sysprep = {
-    install_type = "PREPARED"
-    unattend_xml = base64encode(data.template_file.unattend.rendered)
-  }
+#  guest_customization_sysprep = {
+#    install_type = "PREPARED"
+#    unattend_xml = base64encode(data.template_file.unattend.rendered)
+#  }
 
   # image reference
   disk_list {
